@@ -1,9 +1,6 @@
 from django.shortcuts import render
+from .models import Computer
 
-# computers = [
-#   {'name': 'macbook m2 14 inch', 'storage': '500 GB', 'Color': 'black', 'condition': 'new'},
-#   {'name': 'macbook m3 16 inch', 'storage': '1 TB', 'Color': 'white', 'condition': 'old'},
-# ]
 
 # Create your views here.
 def home(request):
@@ -13,6 +10,7 @@ def about(request):
   return render(request, 'about.html')
 
 def computers_index(request):
+  computers = Computer.objects.all()
   return render(request, 'computers/index.html', {
     'computers': computers
   })
