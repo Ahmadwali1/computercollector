@@ -1,0 +1,11 @@
+body {
+  background-color: #80d8ff;
+}
+.custom-container {
+  display: flex;
+  max-width: 300px;
+  width: 100%;
+  margin-left: 400px;
+}
+
+
