@@ -1,0 +1,31 @@
+
+{% extends 'base.html' %}
+{% block content%}
+{% if object %}
+<h1>Edit {{object.name}}</h1>
+{% else %}
+<h1>Add Computer</h1>
+{%endif%}
+<div class="form">
+  <form action="" method="POST">
+    {% csrf_token %}
+    <div class="mb-3">
+      <label  class="form-label">Computer Name</label>
+      <input type="input" class="form-control" >
+    </div>
+    <div class="mb-3">
+      <label  class="form-label">Storage</label>
+      <input type="input" class="form-control" >
+    </div>
+    <div class="mb-3">
+      <label  class="form-label">Color</label>
+      <input type="input" class="form-control" >
+    </div>
+    <div class="mb-3">
+      <label  class="form-label">Condition</label>
+      <input type="input" class="form-control" >
+    </div>
+    <button type="submit" class="btn btn-primary">Submit</button>
+  </form>
+</div>
+{% endblock %}

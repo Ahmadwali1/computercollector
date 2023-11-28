@@ -18,12 +18,13 @@ def computers_index(request):
   })
 
 def computers_detail(request, computer_id):
-  computers = Computer.objects.get(id = computer_id)
+  computer = Computer.objects.get(id = computer_id)
   return render(request, 'computers/detail.html', {
-    'computers': computers
+    'computer': computer
   })
 
-class ComputerCreate(CreateView):
+class ComputersCreate(CreateView):
   model = Computer
   fields = '__all__'
+  success_url = '/computers/{computer_id}'
 
