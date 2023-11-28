@@ -11,6 +11,10 @@
           <p>Condition:{{computer.condition}}</p>
           <p>Storage:{{computer.storage}}</p>
           <p>Color:{{computer.Color}}</p>
+          <div class="card-action">
+            <a href="{% url 'computers_update' computer.id %}">Edit</a>
+            <a href="{% url 'computers_delete' computer.id %}">Delete</a>
+          </div>
         </div>
       </div>
     </div>

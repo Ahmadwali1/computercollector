@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from django.views.generic.edit import CreateView
+from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from .models import Computer
 
 
@@ -28,3 +28,11 @@ class ComputersCreate(CreateView):
   fields = '__all__'
   success_url = '/computers/{computer_id}'
 
+class ComputersUpdate(UpdateView):
+  model = Computer
+  # fields = ['Condition', 'Storage', 'Color']
+  fields = '__all__'
+
+class ComputersDelete(DeleteView):
+  model = Computer
+  success_url = '/computers'
