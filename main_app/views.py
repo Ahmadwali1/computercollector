@@ -21,32 +21,26 @@ def computers_index(request):
 
 def computers_detail(request, computer_id):
   computer = Computer.objects.get(id = computer_id)
+  id_list = computer.accessories.all().values_list('id')
+  accessories_computer_doesnt_have = Accessory.objects.exclude(id__in=id_list)
   comment_form = CommentForm()
   return render(request, 'computers/detail.html', {
     'computer': computer,
-    'comment_form': comment_form
+    'comment_form': comment_form,
+    'accessories': accessories_computer_doesnt_have
   })
 
 class ComputersCreate(CreateView):
   model = Computer
-  fields = '__all__'
+  fields = ['name','storage','color','condition']
   success_url = reverse_lazy('index')
 
 class ComputersUpdate(UpdateView):
     model = Computer
-    fields = '__all__'
+    fields = ['name','storage','color','condition']
     template_name = 'main_app/computer_form.html'  
     success_url = reverse_lazy('index')  
 
-    def form_valid(self, form):
-        print(form.errors)
-        self.object = self.get_object()
-
-        form.instance = self.object
-
-        response = super().form_valid(form)
-
-        return response
 
 class ComputersDelete(DeleteView):
   model = Computer
@@ -75,3 +69,7 @@ class AccessoriesCreate(CreateView):
 class AccessoriesDelete(DeleteView):
   model = Accessory
   success_url = '/accessories'
+
+def accessories(request, computer_id, accessory_id):
+  Computer.objects.get(id=computer_id).accessories.add(accessory_id)
+  return redirect('detail', computer_id=computer_id)

@@ -22,7 +22,7 @@ class Computer(models.Model):
   color = models.CharField(max_length=100)
   condition = models.CharField(max_length=100)
 
-  # accessories = models.ManyToManyField(accessory)
+  accessories = models.ManyToManyField(Accessory)
 
 def __str__(self):
   return f'{self.name} ({self.id})'

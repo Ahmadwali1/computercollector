@@ -12,6 +12,7 @@ urlpatterns = [
   path('computers/<int:pk>/update', views.ComputersUpdate.as_view(), name='computers_update'),
   path('computers/<int:pk>/delete', views.ComputersDelete.as_view(), name='computers_delete'),
   path('computers/<int:computer_id>/add_comment', views.add_comment, name='add_comment'),
+  path('computers/<int:computer_id>/accessories/<int:accessory_id>', views.accessories, name='accessories_add'),
   path('accessories/', views.accessories_index, name='accessory'),
   path('accessories/create', views.AccessoriesCreate.as_view(), name='accessories_create'),
   path('accessories/<int:pk>/delete', views.AccessoriesDelete.as_view(), name='accessories_delete'),

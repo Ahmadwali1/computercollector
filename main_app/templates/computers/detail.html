@@ -18,26 +18,68 @@
     </div>
   </div>
 </div>
-<div class="col s6">
-  <form action="{% url 'add_comment' computer.id %}" method="POST">
-    {% csrf_token %} {{ comment_form.as_p }}
-    <input type="submit" class="btn" value="Add Comment" />
-  </form>
-  <table class="striped">
-    <thead>
-      <tr>
-        <th>Date</th>
-        <th>Review</th>
-      </tr>
-    </thead>
-    <tbody>
-      {% for comment in computer.comment_set.all %}
-      <tr>
-        <td>{{comment.date}}</td>
-        <td>{{comment.review}}</td>
-      </tr>
-      {% endfor %}
-    </tbody>
-  </table>
+<hr />
+<div class="row">
+  <div class="col s6">
+    <h3>{{ computer.name }}'s Accessories</h3>
+    {% if computer.accessories.count %} 
+    {% for accessory in computer.accessories.all %}
+    <div class="card">
+      <div class="card-content">
+        <div class="card-content">
+          <span class="card-title">{{accessory.name}}</span>
+          <p>{{accessory.color}}</p>
+          <p>{{accessory.condition}}</p>
+        </div>
+      </div>
+    </div>
+    {% endfor %} {% else %}
+    <h5>No Accessories</h5>
+    {% endif %}
+  </div>
+  
+  <div class="col s6">
+    <h3>Available Accessories</h3>
+    {% if accessories.count %} {% for accessory in accessories.all %}
+    <div class="card">
+      <div class="card-content">
+        <span class="card-title">{{accessory.name}}</span>
+        <p>color: {{accessory.color}}</p>
+        <p>condition: {{accessory.condition}}</p>
+      </div>
+      <div class="card-action">
+        <form action="{%url 'accessories_add' computer.id accessory.id%}" method="POST">
+          {% csrf_token %}
+          <button type="submit" class="btn">Add</button>
+        </form>
+      </div>
+    </div>
+    {% endfor %} {% else %}
+    <h5>{{computer.name}} Already Has All Accessories Available</h5>
+    {% endif %}
+  </div>
+  <hr />
+  <div class="col s6">
+    <form action="{% url 'add_comment' computer.id %}" method="POST">
+      {% csrf_token %} {{ comment_form.as_p }}
+      <input type="submit" class="btn" value="Add Comment" />
+    </form>
+    <table class="striped">
+      <thead>
+        <tr>
+          <th>Date</th>
+          <th>Review</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for comment in computer.comment_set.all %}
+        <tr>
+          <td>{{comment.date}}</td>
+          <td>{{comment.review}}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+  {% endblock %}
 </div>
-{% endblock %}
