@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
-from .models import Computer
+from .models import Computer, Accessory
 from django.urls import reverse_lazy
 from .forms import CommentForm
 
@@ -60,3 +60,18 @@ def add_comment(request, computer_id):
         new_comment.computer_id = computer_id
         new_comment.save()
     return redirect('detail', computer_id=computer_id)
+
+def accessories_index(request):
+  accessories = Accessory.objects.all()
+  return render(request, 'computers/accessory.html', {
+    'accessories': accessories,
+  })
+
+class AccessoriesCreate(CreateView):
+  model = Accessory
+  fields = '__all__'
+  success_url = reverse_lazy('accessory')
+
+class AccessoriesDelete(DeleteView):
+  model = Accessory
+  success_url = '/accessories'
