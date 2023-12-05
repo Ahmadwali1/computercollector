@@ -1,5 +1,4 @@
-{% extends 'base.html' %}
-{% block content %}
+{% extends 'base.html' %} {% block content %}
 <h1>Computers List</h1>
 {% for computer in computers%}
 <a href="{% url 'detail' computer.id%}">
@@ -11,13 +10,11 @@
             <span class="card-title">{{computer.name}}</span>
             <p>{{computer.condition}}</p>
             <p>Storage: {{computer.storage}}</p>
-            <p>Color: {{computer.Color}}</p>
+            <p>Color: {{computer.color}}</p>
           </div>
         </div>
       </div>
     </div>
   </div>
 </a>
-{% endfor %}
-
-{% endblock %}
+{% endfor %} {% endblock %}

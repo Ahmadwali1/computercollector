@@ -1,5 +1,6 @@
 from django.urls import path
 from.import views
+from django.conf import settings
 
 
 urlpatterns = [
@@ -11,3 +12,11 @@ urlpatterns = [
   path('computers/<int:pk>/update', views.ComputersUpdate.as_view(), name='computers_update'),
   path('computers/<int:pk>/delete', views.ComputersDelete.as_view(), name='computers_delete'),
 ]
+
+
+if settings.DEBUG:
+    import debug_toolbar
+    from django.urls import include
+    urlpatterns = [
+        path('__debug__/', include(debug_toolbar.urls)),
+    ] + urlpatterns

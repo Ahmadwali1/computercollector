@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from .models import Computer
+from django.urls import reverse_lazy
 
 
 
@@ -26,12 +27,26 @@ def computers_detail(request, computer_id):
 class ComputersCreate(CreateView):
   model = Computer
   fields = '__all__'
-  success_url = '/computers/{computer_id}'
+  success_url = reverse_lazy('index')
 
 class ComputersUpdate(UpdateView):
-  model = Computer
-  # fields = ['Condition', 'Storage', 'Color']
-  fields = '__all__'
+    model = Computer
+    fields = '__all__'
+    template_name = 'main_app/computer_form.html'  # Replace with your actual template name
+    success_url = reverse_lazy('index')  # Redirect to the computer list view
+
+    def form_valid(self, form):
+        print(form.errors)
+        # Get the current object being edited
+        self.object = self.get_object()
+
+        # Update the existing instance with the form data
+        form.instance = self.object
+
+        # Save the form
+        response = super().form_valid(form)
+
+        return response
 
 class ComputersDelete(DeleteView):
   model = Computer
