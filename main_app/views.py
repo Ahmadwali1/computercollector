@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from .models import Computer
 from django.urls import reverse_lazy
@@ -51,3 +51,12 @@ class ComputersUpdate(UpdateView):
 class ComputersDelete(DeleteView):
   model = Computer
   success_url = '/computers'
+
+
+def add_comment(request, computer_id):
+    form = CommentForm(request.POST)
+    if form.is_valid():
+        new_comment = form.save(commit=False)
+        new_comment.computer_id = computer_id
+        new_comment.save()
+    return redirect('detail', computer_id=computer_id)

@@ -11,6 +11,7 @@ urlpatterns = [
   path('computers/create', views.ComputersCreate.as_view(), name='computers_create'),
   path('computers/<int:pk>/update', views.ComputersUpdate.as_view(), name='computers_update'),
   path('computers/<int:pk>/delete', views.ComputersDelete.as_view(), name='computers_delete'),
+  path('computers/<int:computer_id>/add_comment', views.add_comment, name='add_comment'),
 ]
 
 

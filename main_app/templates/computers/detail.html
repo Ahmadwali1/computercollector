@@ -19,6 +19,10 @@
   </div>
 </div>
 <div class="col s6">
+  <form action="{% url 'add_comment' computer.id %}" method="POST">
+    {% csrf_token %} {{ comment_form.as_p }}
+    <input type="submit" class="btn" value="Add Comment" />
+  </form>
   <table class="striped">
     <thead>
       <tr>
